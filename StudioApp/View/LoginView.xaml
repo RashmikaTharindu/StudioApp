@@ -35,16 +35,16 @@
             Opacity="0.80">
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#462ADB" Offset="0"/>
-                <GradientStop Color="#DA34AE" Offset="0.75"/>
-                <GradientStop Color="#8A16C1" Offset="1"/>
+                <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
+                    <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"/>
+                    <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
             </LinearGradientBrush>
         </Border.BorderBrush>
 
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                <GradientStop Color="#060531" Offset="0"/>
-                <GradientStop Color="#1B1448" Offset="0.75"/>
+                <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.75"/>
             </LinearGradientBrush>
         </Border.Background>
             <Grid>
@@ -161,7 +161,12 @@
                              VerticalContentAlignment="Center"
                              Margin="0,5,0,0"
                              Padding="20,0,0,0"
-                             Background="Transparent">
+                            >
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/user-icon.png"
+                                        Stretch="None"
+                                        AlignmentX="Left"/>
+                        </TextBox.Background>
                         
                     </TextBox>
                     <TextBlock Text="Password"
