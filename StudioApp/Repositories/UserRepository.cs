@@ -57,7 +57,7 @@ namespace StudioApp.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select *from [User] where username=@username";
+                command.CommandText = "select *from `User` where username=@username";
                 command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
                 using (var reader = command.ExecuteReader())
                 {

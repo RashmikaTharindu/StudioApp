@@ -188,16 +188,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\key-icon.png" />
+    <Resource Include="Images\user-icon.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\login.jpeg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\pwd.png" />
-    <Resource Include="Images\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
