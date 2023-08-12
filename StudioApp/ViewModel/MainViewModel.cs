@@ -1,19 +1,21 @@
-﻿using StudioApp.Model;
+﻿using FontAwesome.Sharp;
+using StudioApp.Model;
 using StudioApp.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace StudioApp.ViewModel
 {
-    public class MainViewModel:ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
         //Fields
         private UserAccountModel _currentUserAccount;
         private IUserRepository userRepository;
+
+        private ViewModelBase _currentChildView;
+        private string _caption;
+        private IconChar _icon;
 
         public UserAccountModel CurrentUserAccount
         {
@@ -29,11 +31,75 @@ namespace StudioApp.ViewModel
             }
         }
 
+        public ViewModelBase CurrentChildView
+        {
+            get
+            {
+                return _currentChildView;
+            }
+            set
+            {
+                _currentChildView = value;
+                OnPropertyChanged(nameof(CurrentChildView));
+            }
+
+
+        }
+        public string Caption
+        {
+            get
+            {
+                return _caption;
+            }
+            set
+            {
+                _caption = value;
+                OnPropertyChanged(nameof(Caption));
+            }
+        }
+        public IconChar Icon
+        {
+            get
+            {
+                return _icon;
+            }
+            set
+            {
+                _icon = value;
+                OnPropertyChanged(nameof(Icon));
+            }
+        }
+        //--> Commands
+        public ICommand ShowHomeViewCommand { get; }
+        public ICommand ShowEventViewCommand { get; }
+
         public MainViewModel()
         {
             userRepository = new UserRepository();
             CurrentUserAccount = new UserAccountModel();
+
+            //Initialize commands
+            ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
+            ShowEventViewCommand = new ViewModelCommand(ExecuteShowEventViewCommand);
+
+            //Default view
+            ExecuteShowHomeViewCommand(null);
+
             LoadCurrentUserData();
+        }
+
+        private void ExecuteShowEventViewCommand(object obj)
+        {
+            CurrentChildView = new EventViewModel();
+            Caption = "Event";
+            Icon = IconChar.UserGroup;
+        }
+
+        private void ExecuteShowHomeViewCommand(object obj)
+        {
+            CurrentChildView = new HomeViewModel();
+            Caption = "Dashboard";
+            Icon = IconChar.Home;
         }
 
         private void LoadCurrentUserData()
@@ -42,7 +108,7 @@ namespace StudioApp.ViewModel
             if (user != null)
             {
                 CurrentUserAccount.Username = user.Username;
-                CurrentUserAccount.DisplayName = $"Welcome {user.Name} {user.LastName} ;)";
+                CurrentUserAccount.DisplayName = $" {user.Name} {user.LastName}";
                 CurrentUserAccount.ProfilePicture = null;
             }
             else
